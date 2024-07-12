@@ -30,7 +30,7 @@ const Upload = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/FINAL/real_upload_results', formData);
+      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/Integration/real_upload_results', formData);
       console.log('Data uploaded successfully', response.data);
       alert('Data uploaded successfully');
     } catch (error) {
@@ -144,7 +144,7 @@ const Upload = () => {
           name="date"
           value={formData.date}
           onChange={handleChange}
-          placeholder="측정 날짜"
+          placeholder="측정날짜"
           required
         />
         <button type="submit">Upload</button>

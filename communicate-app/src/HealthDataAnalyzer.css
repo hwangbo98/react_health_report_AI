@@ -1,22 +1,32 @@
-/* HealthDataAnalyzer.css */
-
 /* 전체 배경 및 폰트 설정 */
 body {
   background-color: #f0f2f5;
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* 컨테이너 설정 */
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   max-width: 600px;
-  margin: 50px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; /* 컨테이너에 box-sizing 적용 */
+  overflow-y: auto; /* 컨텐츠가 넘칠 경우 스크롤 가능하게 설정 */
 }
 
 /* 제목 스타일 */
@@ -32,6 +42,7 @@ form {
   flex-direction: column;
   gap: 15px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 /* 입력 필드 스타일 */
@@ -43,6 +54,8 @@ input[type="date"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   transition: border-color 0.3s;
+  width: 100%; /* 부모 요소의 100% 너비 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
 }
 
 input[type="text"]:focus,
@@ -62,6 +75,8 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
 }
 
 button:hover {
@@ -75,6 +90,10 @@ button:hover {
   border-radius: 8px;
   border: 1px solid #ddd;
   text-align: left;
+  width: 100%;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  white-space: pre-wrap; /* Preserve whitespace */
+  word-wrap: break-word; /* Break long words */
 }
 
 /* h2 스타일 */

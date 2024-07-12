@@ -13,6 +13,9 @@ const Home = () => {
           <li>
             <Link to="/analyze">Analyze Data</Link>
           </li>
+          <li>
+            <Link to="/face-detection">출석 관리</Link>
+          </li>
         </ul>
       </nav>
     </div>

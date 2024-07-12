@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ReactTyped as Typed } from 'react-typed';
 import '../HealthDataAnalyzer.css';
 
 const HealthDataAnalyzer = () => {
@@ -16,7 +17,7 @@ const HealthDataAnalyzer = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/STAGE_1/upload_report', {
+      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/Integration/upload_report', {
         user_id: userId,
       });
       setResult(response.data.response);
@@ -42,7 +43,12 @@ const HealthDataAnalyzer = () => {
       </form>
       {loading && <div className="loader"></div>}
       {result && !loading && (
-        <div className="result" dangerouslySetInnerHTML={{ __html: result }}></div>
+        <div className="result">
+          <Typed
+            strings={[result]}
+            typeSpeed={40}
+          />
+        </div>
       )}
     </div>
   );

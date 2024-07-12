@@ -56,6 +56,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Upload from './components/Upload';
 import HealthDataAnalyzer from './components/HealthDataAnalyzer';
+import FaceDetection from './components/FaceDetection';
 import './HealthDataAnalyzer.css';
 
 function App() {
@@ -63,9 +64,10 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/analyze" element={<HealthDataAnalyzer />} />
+          <Route path="/face-detection" element={<FaceDetection />} />
         </Routes>
       </div>
     </Router>
