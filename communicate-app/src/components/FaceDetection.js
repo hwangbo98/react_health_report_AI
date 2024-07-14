@@ -76,7 +76,7 @@ const FaceDetection = () => {
         faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
         faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
         faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
-      }, 1000);
+      }, 5000);
     };
 
     videoRef.current && videoRef.current.addEventListener('play', handleVideoPlay);
@@ -92,10 +92,14 @@ const FaceDetection = () => {
 
   return (
     <div className="face-detection">
-      <h1>Webcam Face Detection</h1>
+      <header>
+        <h1>Webcam Face Detection</h1>
+      </header>
       <div className="container">
-        <video ref={videoRef} autoPlay muted />
-        <canvas ref={canvasRef} />
+        <div className="video-wrapper">
+          <video ref={videoRef} autoPlay muted className="video" />
+          <canvas ref={canvasRef} className="canvas" />
+        </div>
       </div>
       <div id="results">
         {results.map((result, index) => (
