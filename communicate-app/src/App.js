@@ -53,22 +53,28 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './components/Home';
 import Upload from './components/Upload';
 import HealthDataAnalyzer from './components/HealthDataAnalyzer';
 import FaceDetection from './components/FaceDetection';
-import './HealthDataAnalyzer.css';
+import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/analyze" element={<HealthDataAnalyzer />} />
-          <Route path="/face-detection" element={<FaceDetection />} />
-        </Routes>
+        <Header />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/upload" element={<Upload />} />
+            <Route path="/analyze" element={<HealthDataAnalyzer />} />
+            <Route path="/face-detection" element={<FaceDetection />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
     </Router>
   );

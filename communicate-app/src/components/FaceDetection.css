@@ -1,57 +1,153 @@
-.face-detection {
+/* 전체 배경 및 폰트 설정 */
+body {
+    background-color: #f0f2f5;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 컨테이너 설정 */
+  .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .container {
-    position: relative;
-    width: 640px;
-    height: 480px;
-  }
-  
-  video {
-    border: 5px solid #333;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    height: 100%;
-  }
-  
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    z-index: 2;
-  }
-  
-  #results {
-    width: 640px;
-    padding: 10px;
+    align-items: center;
+    width: 100%; /* 전체 너비 사용 */
+    height: 100%; /* 전체 높이 사용 */
+    padding: 40px;
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
-    position: relative;
-    z-index: 10;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
   }
   
-  .person {
+  /* 제목 스타일 */
+  h1 {
+    color: #333;
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  /* 폼 설정 */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  /* 입력 필드 스타일 */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"] {
+    padding: 12px;
+    font-size: 18px; /* 폰트 크기를 18px로 설정 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    width: 100%; /* 부모 요소의 100% 너비 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  }
+  
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  input[type="date"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* 버튼 스타일 */
+  button {
+    padding: 14px; /* 패딩을 14px로 설정 */
+    font-size: 18px; /* 폰트 크기를 18px로 설정 */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* 결과 스타일 */
+  .result {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+    white-space: pre-wrap; /* Preserve whitespace */
+    word-wrap: break-word; /* Break long words */
+  }
+  
+  /* h2 스타일 */
+  h2 {
+    margin-top: 0;
+    color: #007bff;
+  }
+  
+  /* h3 스타일 */
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
     margin-bottom: 10px;
   }
   
-  .person p {
-    margin: 5px 0;
+  /* p 스타일 */
+  p {
+    margin: 0 0 15px 0;
+    line-height: 1.6;
+  }
+  
+  /* 로더 스타일 */
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #007bff;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* 내비게이션 스타일 */
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline;
+    margin: 0 10px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  nav a:hover {
+    color: #0056b3;
   }

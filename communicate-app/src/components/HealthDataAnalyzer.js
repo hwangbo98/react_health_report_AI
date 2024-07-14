@@ -46,7 +46,7 @@ const HealthDataAnalyzer = () => {
         <div className="result">
           <Typed
             strings={[result]}
-            typeSpeed={40}
+            typeSpeed={30}
           />
         </div>
       )}
