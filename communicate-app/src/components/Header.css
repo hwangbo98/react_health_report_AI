@@ -1,33 +1,47 @@
-/* src/components/Header.css */
+/* 전체 헤더 스타일 */
 .header {
-    background-color: #007bff;
+    background-color: #004d40; /* 진한 초록색 배경 */
     color: white;
     padding: 1rem;
+    margin: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
   }
   
+  /* 로고 스타일 */
   .logo {
-    font-size: 1.5rem;
+    font-size: 1.75rem; /* 더 큰 글꼴 크기 */
     font-weight: bold;
+    letter-spacing: 1.5px; /* 글자 간격 */
   }
   
+  /* 내비게이션 스타일 */
   nav ul {
     list-style-type: none;
     padding: 0;
     display: flex;
+    margin: 0;
   }
   
+  /* 내비게이션 항목 스타일 */
   nav ul li {
-    margin-left: 1rem;
+    margin-left: 2rem; /* 더 큰 간격 */
   }
   
+  /* 내비게이션 링크 스타일 */
   nav ul li a {
     color: white;
     text-decoration: none;
+    font-size: 1rem; /* 기본 글꼴 크기 */
+    padding: 0.5rem 1rem; /* 더 넉넉한 패딩 */
+    border-radius: 4px; /* 둥근 모서리 */
+    transition: background-color 0.3s; /* 배경색 전환 */
   }
   
+  /* 링크 호버 스타일 */
   nav ul li a:hover {
-    text-decoration: underline;
+    background-color: #00796b; /* 연한 초록색 배경 */
+    text-decoration: none;
   }

@@ -171,15 +171,160 @@
 // };
 
 // export default OcrComponent;
+// import React, { useState } from 'react';
+// import AWS from 'aws-sdk';
+// import axios from 'axios';
+// import './Upload_ver1.css';
+
+
+// const OcrComponent = () => {
+//   const [formData, setFormData] = useState({
+//     user_id: '',
+//     height: '',
+//     weight: '',
+//     age: '',
+//     total_body_water: '',
+//     protein: '',
+//     minerals: '',
+//     body_fat_mass: '',
+//     skeletal_muscle_mass: '',
+//     date: ''
+//   });
+//   const [error, setError] = useState(null);
+//   const [selectedFile, setSelectedFile] = useState(null);
+//   const [loading, setLoading] = useState(false);
+//   const [message, setMessage] = useState('');
+//   const [fileName, setFileName] = useState('');
+
+//   const handleFileChange = (e) => {
+//     setSelectedFile(e.target.files[0]);
+//   };
+
+//   const handleUpload = async () => {
+//     if (!selectedFile) {
+//       setError('파일을 선택하세요.');
+//       return;
+//     }
+
+//     setLoading(true); // 로딩 시작
+
+//     try {
+//       const timestamp = new Date().getTime();
+//       const fileName = `inbody_img/${timestamp}_${selectedFile.name}`;
+//       setFileName(fileName);
+
+//       const params = {
+//         Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
+//         Key: fileName,
+//         Body: selectedFile,
+//         ContentType: selectedFile.type
+//       };
+
+//       const s3 = new AWS.S3({
+//         accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+//         secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+//         region: process.env.REACT_APP_AWS_REGION
+//       });
+
+//       s3.upload(params, (err, data) => {
+//         if (err) {
+//           setError(`파일 업로드 오류: ${err.message}`);
+//         } else {
+//           setMessage('파일이 성공적으로 업로드되었습니다.');
+//         }
+//         setLoading(false); // 로딩 종료
+//       });
+//     } catch (err) {
+//       console.error('파일 업로드 오류:', err);
+//       setError(`파일 업로드 오류: ${err.message}`);
+//       setLoading(false); // 로딩 종료
+//     }
+//   };
+
+//   const fetchOcrData = async () => {
+//     if (!fileName) {
+//       setError('파일이 업로드되지 않았습니다.');
+//       return;
+//     }
+
+//     try {
+//       const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/FINAL_7/upload_inbody', {
+//         file_name: fileName
+//       }, {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
+
+//       if (response.status !== 200) {
+//         throw new Error(`Failed to fetch OCR data: ${response.statusText}`);
+//       }
+
+//       const data = response.data;
+//       const extractedData = JSON.parse(data.extracted_data);
+
+//       setFormData({
+//         user_id: extractedData.회원번호 || '',
+//         height: extractedData.신장 || '',
+//         weight: extractedData.체중 || '',
+//         age: extractedData.나이 || '',
+//         total_body_water: extractedData.체수분 || '',
+//         protein: extractedData.단백질 || '',
+//         minerals: extractedData.무기질 || '',
+//         body_fat_mass: extractedData.체지방량 || '',
+//         skeletal_muscle_mass: extractedData.골격근량 || '',
+//         date: extractedData.측정날짜 || ''
+//       });
+//     } catch (error) {
+//       console.error('데이터 가져오기 오류:', error);
+//       setError(`데이터 가져오기 오류: ${error.message}`);
+//     }
+//   };
+
+//   const handleChange = (e) => {
+//     setFormData({
+//       ...formData,
+//       [e.target.name]: e.target.value,
+//     });
+//   };
+
+//   return (
+//     <div>
+//       <h1>OCR 데이터 가져오기</h1>
+//       <input type="file" onChange={handleFileChange} />
+//       <button onClick={handleUpload} disabled={loading}>파일 업로드</button>
+      
+//       {loading && <p>로딩중...</p>}
+//       {error && <p style={{ color: 'red' }}>{error}</p>}
+//       {message && <p style={{ color: 'green' }}>{message}</p>}
+//       <form>
+//         <input type="text" name="user_id" value={formData.user_id} onChange={handleChange} placeholder="ID" />
+//         <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="신장 (cm)" />
+//         <input type="number" name="weight" value={formData.weight} onChange={handleChange} placeholder="체중 (kg)" />
+//         <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="나이" />
+//         <input type="number" name="total_body_water" value={formData.total_body_water} onChange={handleChange} placeholder="체수분 (%)" />
+//         <input type="number" name="protein" value={formData.protein} onChange={handleChange} placeholder="단백질 (kg)" />
+//         <input type="number" name="minerals" value={formData.minerals} onChange={handleChange} placeholder="무기질 (kg)" />
+//         <input type="number" name="body_fat_mass" value={formData.body_fat_mass} onChange={handleChange} placeholder="체지방량 (%)" />
+//         <input type="number" name="skeletal_muscle_mass" value={formData.skeletal_muscle_mass} onChange={handleChange} placeholder="골격근량 (kg)" />
+//         <input type="date" name="date" value={formData.date} onChange={handleChange} placeholder="측정날짜" />
+//       </form>
+//       <button onClick={fetchOcrData} disabled={loading}>데이터 가져오기</button>
+//     </div>
+//   );
+// };
+
+// export default OcrComponent;
 import React, { useState } from 'react';
 import AWS from 'aws-sdk';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader';
-import './Upload-ver1.css';
+import './Upload_ver1.css';
 
 const OcrComponent = () => {
   const [formData, setFormData] = useState({
     user_id: '',
+    sex: '',
     height: '',
     weight: '',
     age: '',
@@ -188,7 +333,10 @@ const OcrComponent = () => {
     minerals: '',
     body_fat_mass: '',
     skeletal_muscle_mass: '',
-    date: ''
+    date: '',
+    purpose: '',
+    job: '',
+    number: '',
   });
   const [error, setError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -267,6 +415,7 @@ const OcrComponent = () => {
 
       setFormData({
         user_id: extractedData.회원번호 || '',
+        sex: extractedData.성별 || '',
         height: extractedData.신장 || '',
         weight: extractedData.체중 || '',
         age: extractedData.나이 || '',
@@ -275,7 +424,9 @@ const OcrComponent = () => {
         minerals: extractedData.무기질 || '',
         body_fat_mass: extractedData.체지방량 || '',
         skeletal_muscle_mass: extractedData.골격근량 || '',
-        date: extractedData.측정날짜 || ''
+        date: extractedData.측정날짜 || '',
+        purpose: extractedData.목적 || '',  // 추가된 부분
+        job: extractedData.직업 || '',
       });
     } catch (error) {
       console.error('데이터 가져오기 오류:', error);
@@ -291,21 +442,84 @@ const OcrComponent = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
+    setMessage('');
+
+    let formattedDate = formData.date;
+    if (formData.date) {
+      const dateParts = formData.date.split('.');
+      if (dateParts.length === 3) {
+        const year = dateParts[0].trim();
+        const month = dateParts[1].trim().padStart(2, '0');
+        const day = dateParts[2].trim().padStart(2, '0');
+        formattedDate = `${year}-${month}-${day}`;
+      }
+    }
+
+    if (!formattedDate) {
+      setError('날짜를 입력해주세요.');
+      setLoading(false);
+      return;
+    }
+
+    const dataToSend = {
+      ...formData,
+      date: formattedDate,
+      memberpk: formData.user_id
+    };
+
+    console.log('Sending data to server:', dataToSend);
+
+    try {
+      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/FINAL_8/Inbody_To_DB', 
+        dataToSend, 
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('Server response:', response.data);
+
+      if (response.status !== 200) {
+        throw new Error(`Failed to save data: ${response.statusText}`);
+      }
+
+      setMessage('데이터가 성공적으로 저장되었습니다.');
+    } catch (error) {
+      console.error('데이터 저장 오류:', error);
+      setError(`데이터 저장 오류: ${error.response?.data || error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <div className="container">
-      <h1>OCR 데이터 가져오기</h1>
+      <h1> 데이터 가져오기</h1>
       <div className="file-input">
-        <input type="file" onChange={handleFileChange} />
+        <input id="file-upload" type="file" onChange={handleFileChange} />
         <button onClick={handleUpload} disabled={loading}>파일 업로드</button>
       </div>
-      {loading && <ClipLoader color="#4CAF50" loading={loading} size={50} />}
+      {loading && <div className="loader-container"><ClipLoader color="#4CAF50" loading={loading} size={50} /></div>}
       {error && <p className="error">{error}</p>}
       {message && <p className="message">{message}</p>}
       <form>
         <div className="form-group">
           <label htmlFor="user_id">ID</label>
           <input type="text" name="user_id" value={formData.user_id} onChange={handleChange} placeholder="ID" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="sex">성별</label>
+          <input type="text" name="sex" value={formData.sex} onChange={handleChange} placeholder="성별" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="job">직업</label>
+          <input type="text" name="job" value={formData.job} onChange={handleChange} placeholder="직업" />
         </div>
         <div className="form-group">
           <label htmlFor="height">신장 (cm)</label>
@@ -340,13 +554,18 @@ const OcrComponent = () => {
           <input type="number" name="skeletal_muscle_mass" value={formData.skeletal_muscle_mass} onChange={handleChange} placeholder="골격근량 (%)" />
         </div>
         <div className="form-group">
+          <label htmlFor="purpose">운동 목적</label>
+          <input type="text" name="purpose" value={formData.purpose} onChange={handleChange} placeholder="운동 목적" />
+        </div>
+        <div className="form-group">
           <label htmlFor="date">측정날짜</label>
           <input type="date" name="date" value={formData.date} onChange={handleChange} placeholder="측정날짜" />
         </div>
-        <div className="buttons">
-          <button onClick={fetchOcrData} disabled={loading}>데이터 가져오기</button>
-        </div>
       </form>
+      <div className="buttons">
+        <button onClick={fetchOcrData} disabled={loading}>데이터 가져오기</button>
+        <button onClick={handleSubmit} disabled={loading}>DB에 저장</button>
+      </div>
     </div>
   );
 };

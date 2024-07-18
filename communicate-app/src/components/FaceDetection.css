@@ -1,94 +1,158 @@
 /* 전체 배경 및 폰트 설정 */
 body {
-    background-color: #f0f2f5;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  /* FaceDetection 컴포넌트 설정 */
-  .face-detection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  /* 헤더 설정 */
-  header {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* 컨테이너 설정 */
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  /* 비디오와 캔버스를 겹치도록 설정 */
-  .video-wrapper {
-    position: relative;
-    width : 640px;
-    height : 480px;
-    width: 100%;
-    max-width: 100%;
-    /* padding-top: 56.25%;  */
-    /* 16:9 비율을 유지하기 위한 패딩 설정 */
-    overflow: hidden;
-    border-radius: 8px;
-  }
-  
-  video, canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  
-  /* 제목 스타일 */
-  h1 {
-    color: #333;
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  /* 결과 스타일 */
-  #results {
-    margin-top: 20px;
-    width: 100%;
-    text-align: left;
-  }
-  
-  .person {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-  }
-  
-  .person p {
-    margin: 0;
-    line-height: 1.6;
-  }
+  background-color: #f0f2f5;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* FaceDetection 컴포넌트 설정 */
+.face-detection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* 헤더 설정 */
+header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #004d40;
+  padding: 20px 0;
+  border-radius: 8px 8px 0 0;
+}
+
+/* 제목 스타일 */
+h1 {
+  color: #ffffff;
+  font-size: 28px;
+  margin: 0;
+}
+
+/* 컨테이너 설정 */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 8px 8px;
+}
+
+/* 비디오와 캔버스를 겹치도록 설정 */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  height: 0;
+  padding-bottom: 75%; /* 4:3 비율 */
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+video, canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* 결과 스타일 */
+#results {
+  margin-top: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.person {
+  background-color: #ffffff;
+  border-left: 4px solid #3498db;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.person:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.person p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.person p strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.message {
+  font-size: 22px;
+  width: 500px;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-align:center;
+}
+
+.name {
+  color: #3498db;
+  font-size: 18px;
+}
+
+.timestamp {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+/* 로딩 애니메이션 */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 20px;
+}
+
+.loading-icon {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(52, 152, 219, 0.2);
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading p {
+  margin-top: 12px;
+  font-weight: 500;
+  color: #2c3e50;
+  font-size: 14px;
+}

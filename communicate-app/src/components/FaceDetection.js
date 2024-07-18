@@ -6,6 +6,7 @@ const FaceDetection = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [results, setResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -23,6 +24,7 @@ const FaceDetection = () => {
         })
         .catch(err => {
           console.error("Error accessing webcam: ", err);
+          setResults([{ message: '웹캠 접근 오류', error: err.toString() }]);
         });
     };
 
@@ -31,6 +33,7 @@ const FaceDetection = () => {
 
   useEffect(() => {
     const sendImageToServer = async () => {
+      setIsLoading(true);
       const captureCanvas = document.createElement('canvas');
       captureCanvas.width = videoRef.current.videoWidth;
       captureCanvas.height = videoRef.current.videoHeight;
@@ -46,10 +49,16 @@ const FaceDetection = () => {
           },
           body: JSON.stringify({ image: base64Image })
         });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
-        displayResults(data);
+        setResults(data);
       } catch (error) {
         console.error('Error:', error);
+        setResults([{ message: '서버 통신 오류', error: error.toString() }]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -76,39 +85,51 @@ const FaceDetection = () => {
         faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
         faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
         faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
-      }, 5000);
+      }, 10000);
     };
 
-    videoRef.current && videoRef.current.addEventListener('play', handleVideoPlay);
-  }, []);
-
-  const displayResults = (data) => {
-    if (data.match) {
-      setResults(data.results);
-    } else {
-      setResults([{ person: 'No matching faces found.', similarity: 0, status: '' }]);
+    if (videoRef.current) {
+      videoRef.current.addEventListener('play', handleVideoPlay);
     }
-  };
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener('play', handleVideoPlay);
+      }
+    };
+  }, []);
 
   return (
     <div className="face-detection">
-      <header>
-        <h1>Webcam Face Detection</h1>
+      <header className="app-header">
+        <h1>얼굴 인식 출석 체크</h1>
       </header>
       <div className="container">
         <div className="video-wrapper">
           <video ref={videoRef} autoPlay muted className="video" />
           <canvas ref={canvasRef} className="canvas" />
         </div>
-      </div>
-      <div id="results">
-        {results.map((result, index) => (
-          <div key={index} className="person">
-            <p><strong>Name:</strong> {result.person}</p>
-            <p><strong>Similarity:</strong> {result.similarity.toFixed(2)}%</p>
-            <p><strong>Status:</strong> {result.status}</p>
-          </div>
-        ))}
+        <div className="results-container">
+          {isLoading ? (
+            <div className="message loading">
+              <div className="loading-icon"></div>
+              <p>얼굴을 인식하는 중...</p>
+            </div>
+          ) : results.length > 0 ? (
+            results.map((result, index) => (
+              <div key={index} className="message result">
+                <p className="result-message">{result.message}</p>
+                {result.user_nickname && <p className="result-name">이름: {result.user_nickname}</p>}
+                {result.timestamp && <p className="result-time">시간: {new Date(result.timestamp).toLocaleString()}</p>}
+                {result.error && <p className="result-error">오류: {result.error}</p>}
+              </div>
+            ))
+          ) : (
+            <div className="message info">
+              <p>카메라에 얼굴을 비춰주세요.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

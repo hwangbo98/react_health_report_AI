@@ -1,35 +1,57 @@
-.container {
-    max-width: 600px;
+.ocr-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: calc(100vh - 120px); /* 헤더와 푸터 높이를 고려하여 조정 */
   }
   
-  h1 {
-    text-align: center;
+  .ocr-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
   
   .file-input {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
   }
   
-  .buttons {
+  .file-input input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-group {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  label {
+    flex: 0 0 120px;
+    text-align: left;
+    margin-right: 10px;
+  }
+  
+  input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
   
   button {
-    padding: 20px 20px;
-    margin-top : 30px;
-    margin-bottom: 30px;
+    width: 100%;
+    padding: 10px 20px;
     border: none;
-    background-color: #00796b;
+    background-color: #4CAF50;
     color: white;
     cursor: pointer;
-    
+    margin-top: 10px;
   }
   
   button:disabled {
@@ -37,35 +59,37 @@
     cursor: not-allowed;
   }
   
-  button + button {
-    margin-left: 10px;
-  }
-  
-  .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  label {
-    flex: 1;
-    margin-right: 10px;
-  }
-  
-  input {
-    flex: 2;
-    padding: 30px;
-
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  .error, .message {
+    text-align: center;
+    margin: 10px 0;
   }
   
   .error {
     color: red;
-    text-align: center;
   }
   
   .message {
     color: green;
-    text-align: center;
+  }
+  
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  @media (max-width: 600px) {
+    .form-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    label {
+      margin-bottom: 5px;
+    }
+    
+    input {
+      width: 100%;
+    }
   }
