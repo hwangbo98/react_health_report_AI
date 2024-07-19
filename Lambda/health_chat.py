@@ -9,8 +9,6 @@ from datetime import datetime
 # table = dynamodb.Table('ChatHistory')
 
 # OpenAI API 키 설정
-OPENAI_API_KEY = 'sk-proj-uOM8S1EXEwSjETsbI6NaT3BlbkFJQy2QPNhL0f3ckWsKLdVn'
-openai.api_key = OPENAI_API_KEY
 
 def lambda_handler(event, context):
     # 요청 본문(body) 추출
