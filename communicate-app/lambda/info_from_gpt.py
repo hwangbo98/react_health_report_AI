@@ -23,7 +23,6 @@ def lambda_handler(event, context):
         # 환경 변수에서 OCR API 키와 URL 가져오기
         ocr_api_key = os.environ['OCR_API_KEY']
         ocr_url = os.environ['OCR_URL']
-        gpt_api_key = 'sk-proj-YpePYaAvW5clsNYCMwQyT3BlbkFJp5POOU5yrPcyf4EuiuVp'
         
         # HTTP -> HTTPS 변경
         
