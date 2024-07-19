@@ -3,7 +3,7 @@ import openai
 import pymysql
 import os
 # OpenAI API 키 설정
-OPENAI_API_KEY = 'sk-proj-uOM8S1EXEwSjETsbI6NaT3BlbkFJQy2QPNhL0f3ckWsKLdVn'
+OPENAI_API_KEY = ''
 openai.api_key = OPENAI_API_KEY
 
 # RDS 설정
