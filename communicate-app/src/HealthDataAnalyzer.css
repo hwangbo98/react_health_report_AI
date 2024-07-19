@@ -1,13 +1,13 @@
 /* 전체 배경 및 폰트 설정 */
 body {
-  background-color: #f0f2f5;
+  background-color: #e0f7fa; /* 밝은 민트색 배경 */
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 }
 
@@ -17,31 +17,30 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 600px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px; /* 최대 너비를 1200px로 설정 */
+  padding: 40px; /* 패딩을 40px로 늘림 */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 더 부드러운 그림자 */
   text-align: center;
   width: 100%;
-  height: 100%;
-  box-sizing: border-box; /* 컨테이너에 box-sizing 적용 */
-  overflow-y: auto; /* 컨텐츠가 넘칠 경우 스크롤 가능하게 설정 */
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 /* 제목 스타일 */
 h1 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
+  color: #00796b; /* 진한 초록색 */
+  font-size: 36px; /* 글꼴 크기를 36px로 늘림 */
+  margin-bottom: 30px; /* 아래 여백을 30px로 늘림 */
 }
 
 /* 폼 설정 */
 form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 20px; /* 갭을 20px로 늘림 */
+  margin-bottom: 30px; /* 아래 여백을 30px로 늘림 */
   width: 100%;
 }
 
@@ -49,70 +48,71 @@ form {
 input[type="text"],
 input[type="number"],
 input[type="date"] {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 16px; /* 패딩을 16px로 늘림 */
+  font-size: 18px; /* 글꼴 크기를 18px로 늘림 */
+  border: 1px solid #b0bec5; /* 연한 회색 */
+  border-radius: 6px; /* 둥근 모서리 */
   transition: border-color 0.3s;
-  width: 100%; /* 부모 요소의 100% 너비 */
-  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus {
-  border-color: #007bff;
+  border-color: #00796b; /* 진한 초록색 포커스 */
   outline: none;
 }
 
 /* 버튼 스타일 */
 button {
-  padding: 12px;
-  font-size: 16px;
-  background-color: #007bff;
+  padding: 16px; /* 패딩을 16px로 늘림 */
+  font-size: 18px; /* 글꼴 크기를 18px로 늘림 */
+  background-color: #00796b; /* 진한 초록색 */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px; /* 둥근 모서리 */
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
-  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  box-sizing: border-box;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #004d40; /* 더 진한 초록색 */
 }
 
 /* 결과 스타일 */
 .result {
-  background-color: #f9f9f9;
-  padding: 20px;
+  background-color: #f1f8e9; /* 연한 초록색 */
+  padding: 30px; /* 패딩을 30px로 늘림 */
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #c5e1a5; /* 연한 초록색 */
   text-align: left;
   width: 100%;
-  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
-  white-space: pre-wrap; /* Preserve whitespace */
-  word-wrap: break-word; /* Break long words */
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 /* h2 스타일 */
 h2 {
   margin-top: 0;
-  color: #007bff;
+  color: #00796b; /* 진한 초록색 */
+  font-size: 28px; /* 글꼴 크기를 28px로 설정 */
 }
 
 /* h3 스타일 */
 h3 {
-  font-size: 20px;
+  font-size: 24px; /* 글꼴 크기를 24px로 늘림 */
   font-weight: bold;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 15px; /* 아래 여백을 15px로 늘림 */
 }
 
 /* p 스타일 */
 p {
-  margin: 0 0 15px 0;
+  margin: 0 0 20px 0; /* 아래 여백을 20px로 늘림 */
   line-height: 1.6;
 }
 
@@ -120,7 +120,7 @@ p {
 .loader {
   border: 4px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 4px solid #007bff;
+  border-top: 4px solid #00796b; /* 진한 초록색 */
   width: 24px;
   height: 24px;
   animation: spin 1s linear infinite;
@@ -145,10 +145,10 @@ nav li {
 
 nav a {
   text-decoration: none;
-  color: #007bff;
+  color: #00796b; /* 진한 초록색 */
   font-weight: bold;
 }
 
 nav a:hover {
-  color: #0056b3;
+  color: #004d40; /* 더 진한 초록색 */
 }

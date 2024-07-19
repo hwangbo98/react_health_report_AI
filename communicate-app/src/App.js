@@ -1,64 +1,13 @@
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import './App.css';
-
-// const HealthDataAnalyzer = () => {
-//   const [userId, setUserId] = useState('');
-//   const [result, setResult] = useState('');
-//   const [loading, setLoading] = useState(false);
-
-//   const handleInputChange = (e) => {
-//     setUserId(e.target.value);
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setLoading(true);
-
-//     try {
-//       const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/STAGE_1/upload_report', {
-//         user_id: userId,
-//       });
-//       setResult(response.data.response);
-//     } catch (error) {
-//       console.error('Error fetching data', error);
-//       setResult('데이터를 가져오는 중 오류가 발생했습니다.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="container">
-//       <h1>Health Data Analyzer</h1>
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           value={userId}
-//           onChange={handleInputChange}
-//           placeholder="User ID를 입력하세요"
-//         />
-//         <button type="submit">분석하기</button>
-//       </form>
-//       {loading && <div className="loader"></div>}
-//       {result && !loading && (
-//         <div className="result" dangerouslySetInnerHTML={{ __html: result }}></div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default HealthDataAnalyzer;
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Upload from './components/Upload';
+import UploadVer1 from './components/Upload_ver1';
 import HealthDataAnalyzer from './components/HealthDataAnalyzer';
 import FaceDetection from './components/FaceDetection';
+import S3Upload from './components/S3Upload';  // S3Upload 컴포넌트 추가
 import './App.css';
 
 function App() {
@@ -70,6 +19,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/upload" element={<Upload />} />
+            <Route path="/upload-ver1" element={<UploadVer1 />} />
+            <Route path="/s3-upload" element={<S3Upload />} />  {/* S3Upload 경로 추가 */}
             <Route path="/analyze" element={<HealthDataAnalyzer />} />
             <Route path="/face-detection" element={<FaceDetection />} />
           </Routes>

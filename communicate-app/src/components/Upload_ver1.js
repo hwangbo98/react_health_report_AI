@@ -315,11 +315,35 @@
 // };
 
 // export default OcrComponent;
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import AWS from 'aws-sdk';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader';
 import './Upload_ver1.css';
+import styled from "styled-components";
+// import { useEffect, useState } from "react";
+
+const Base = styled.div`
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const SliderObject = styled.div`
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-align: start;
+`;
+
+const FormContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+`;
 
 const OcrComponent = () => {
   const [formData, setFormData] = useState({
@@ -344,6 +368,25 @@ const OcrComponent = () => {
   const [message, setMessage] = useState('');
   const [fileName, setFileName] = useState('');
 
+  useEffect(() => {
+    const handleWheel = (e) => {
+      const currentSection = Math.floor(window.scrollY / window.innerHeight);
+      if (e.deltaY > 0 && currentSection < 4) {
+        window.scrollTo({
+          top: (currentSection + 1) * window.innerHeight,
+          behavior: "smooth",
+        });
+      } else if (e.deltaY < 0 && currentSection > 0) {
+        window.scrollTo({
+          top: (currentSection - 1) * window.innerHeight,
+          behavior: "smooth",
+        });
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel);
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, []);
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -499,12 +542,14 @@ const OcrComponent = () => {
 
 
   return (
-    <div className="container">
-      <h1> 데이터 가져오기</h1>
-      <div className="file-input">
-        <input id="file-upload" type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload} disabled={loading}>파일 업로드</button>
-      </div>
+    <Base className="slider">
+      <SliderObject>
+        <FormContainer>
+          <h1>데이터 가져오기</h1>
+          <div className="file-input">
+            <input id="file-upload" type="file" onChange={handleFileChange} />
+            <button onClick={handleUpload} disabled={loading}>파일 업로드</button>
+          </div>
       {loading && <div className="loader-container"><ClipLoader color="#4CAF50" loading={loading} size={50} /></div>}
       {error && <p className="error">{error}</p>}
       {message && <p className="message">{message}</p>}
@@ -566,7 +611,9 @@ const OcrComponent = () => {
         <button onClick={fetchOcrData} disabled={loading}>데이터 가져오기</button>
         <button onClick={handleSubmit} disabled={loading}>DB에 저장</button>
       </div>
-    </div>
+      </FormContainer>
+      </SliderObject>
+    </Base>
   );
 };
 
